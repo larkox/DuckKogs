@@ -11,15 +11,15 @@ class GameBucle(bucle.Bucle):
     The bucle to play the game.
     """
     def __init__(self,mapName,textureName):
-        #TODO anyadir al personaje principal
+        #TODO anyadir bien y en el txt al personaje principal
         mapFile = open(mapName,'r')
         self.gameMap = gameMap.GameMap(mapFile,textureName)
         self.foes = foesGroup.FoesGroup(mapFile,self.gameMap)
         self.hero = hero.Hero((4,1),self.gameMap)
         mapFile.close()
     def run(self,screen,clock):
-        #TODO eventos del bucle
-        while True:
+        bucleExit = False
+        while not bucleExit:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
@@ -37,7 +37,7 @@ class GameBucle(bucle.Bucle):
             self.foes.update(self.gameMap)
             self.foes.draw(screen)
             if self.hero.update(self.gameMap):
-                break
+                bucleExit = True
             screen.blit(self.hero.image,self.hero.rect)
             pygame.display.flip()
             clock.tick(const.FPS)
