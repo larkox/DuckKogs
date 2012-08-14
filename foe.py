@@ -1,5 +1,8 @@
 import character
 class Foe(character.Character):
+    """
+    Any foe inherits from this class
+    """
     def __init__(self,pos,gameMap,spriteImg):
         super(Foe,self).__init__(pos,gameMap,spriteImg)
         self.getCurrentCell(gameMap).occupied = True
