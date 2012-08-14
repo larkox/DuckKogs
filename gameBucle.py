@@ -14,8 +14,8 @@ class GameBucle(bucle.Bucle):
         #TODO anyadir al personaje principal
         mapFile = open(mapName,'r')
         self.gameMap = gameMap.GameMap(mapFile,textureName)
-        self.foes = foesGroup.FoesGroup(mapFile)
-        self.hero = hero.Hero((1,1))
+        self.foes = foesGroup.FoesGroup(mapFile,self.gameMap)
+        self.hero = hero.Hero((4,1),self.gameMap)
         mapFile.close()
     def run(self,screen,clock):
         #TODO eventos del bucle

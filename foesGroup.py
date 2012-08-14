@@ -20,13 +20,13 @@ class FoesGroup(pygame.sprite.Group):
             2: fast(),
             3: angry(),
             4: master()}
-    def __init__(self,mapFile):
+    def __init__(self,mapFile,gameMap):
         super(FoesGroup,self).__init__()
         for line in mapFile:
             #file format: Type PosX PosY
             data = line.split(" ")
             newSprite = FoesGroup.Switch[int(data[0])](
-                    (int(data[1]),int(data[2])))
+                    (int(data[1]),int(data[2])),gameMap)
             self.add(newSprite)
     def update(self,gameMap):
         for foe in self.sprites():

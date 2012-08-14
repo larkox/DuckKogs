@@ -6,7 +6,7 @@ class Character(pygame.sprite.Sprite):
         pos: the position of the character
         spriteImg: the file where the sprite image is stored
     """
-    def __init__(self,pos,spriteImg):
+    def __init__(self,pos,gameMap,spriteImg):
         super(Character,self).__init__()
         self.pos = pos
         self.texture = pygame.image.load(spriteImg).convert_alpha()
@@ -33,7 +33,6 @@ class Character(pygame.sprite.Sprite):
         currentCell = self.getCurrentCell(gamemap)
         if direction in currentCell.availableDirection:
             movement = Character.Switch[direction]
-            aux = self.pos
             self.pos = (self.pos[0]+movement[0],self.pos[1]+movement[1])
             #We check if the character went form an edge to the other edge
             if self.pos[0] < 0:
@@ -44,14 +43,7 @@ class Character(pygame.sprite.Sprite):
                 self.pos = (self.pos[0],gamemap.height-1)
             elif self.pos[1] == gamemap.height:
                 self.pos = (self.pos[0],0)
-            newCell = self.getCurrentCell(gamemap)
-            if newCell.occupied:
-                self.pos = aux
-            else:
-                #We update the rect information
-                currentCell.occupied = False
-                newCell.occupied = True
-                self.rect.topleft = (self.pos[0]*const.SQUAREDIM,self.pos[1]*const.SQUAREDIM)
+            self.rect.topleft = (self.pos[0]*const.SQUAREDIM,self.pos[1]*const.SQUAREDIM)
 
     def getCurrentCell(self,gamemap):
         return gamemap.cells[self.pos[1]][self.pos[0]]

@@ -1,8 +1,8 @@
-import character
 import const
+import foe
 import pygame
 import random
-class BomberFoe(character.Character):
+class BomberFoe(foe.Foe):
     """
     Defines the bomber Foe.
     This foe has an erratic movement, and sometimes, drops a bomb in the field.
@@ -10,8 +10,8 @@ class BomberFoe(character.Character):
         pos = Initial position on the field
         spriteImg = texture where the sprite image is saved
     """
-    def __init__(self,pos,spriteImg="bomberFoe.png"):
-        super(BomberFoe,self).__init__(pos,spriteImg)
+    def __init__(self,pos,gameMap,spriteImg="bomberFoe.png"):
+        super(BomberFoe,self).__init__(pos,gameMap,spriteImg)
 
     def update(self,gamemap):
         #TODO cuando recibe un golpe
