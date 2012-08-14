@@ -36,6 +36,8 @@ class GameBucle(bucle.Bucle):
             #TODO recolocar el mapa
             self.foes.update(self.gameMap)
             self.foes.draw(screen)
+            if self.hero.update(self.gameMap):
+                break
             screen.blit(self.hero.image,self.hero.rect)
             pygame.display.flip()
             clock.tick(const.FPS)
