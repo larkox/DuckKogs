@@ -34,3 +34,4 @@ class Cell:
         self.x = posX
         self.y = posY
         surface.blit(toDraw,(posX*const.SQUAREDIM,posY*const.SQUAREDIM))
+        self.occupied = False
