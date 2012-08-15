@@ -1,5 +1,7 @@
 import pygame
 import const
+
+
 class Cell:
     """
     Manages every cell on the game map.
@@ -9,7 +11,7 @@ class Cell:
         texture: The map texture surface.
         surface: The map surface, to draw the cell
     """
-    def __init__(self,oFile,(posX,posY),texture,surface):
+    def __init__(self, oFile, (posX, posY), texture, surface):
         #TODO pensar si hacen falta up down left right x y
         #We get if the direction is open or close
         self.up = int(oFile.read(1))
@@ -28,10 +30,11 @@ class Cell:
             self.availableDirection.append(3)
         oFile.read(1)
         #We get and write the chunk of the texture for this cell
-        textPosX = (self.up + self.down*2)*const.SQUAREDIM
-        textPosY = (self.left + self.right*2)*const.SQUAREDIM
-        toDraw = texture.subsurface(((textPosX,textPosY),(const.SQUAREDIM,const.SQUAREDIM)))
+        textPosX = (self.up + self.down * 2) * const.SQUAREDIM
+        textPosY = (self.left + self.right * 2) * const.SQUAREDIM
+        toDraw = texture.subsurface((
+            (textPosX, textPosY), (const.SQUAREDIM, const.SQUAREDIM)))
         self.x = posX
         self.y = posY
-        surface.blit(toDraw,(posX*const.SQUAREDIM,posY*const.SQUAREDIM))
+        surface.blit(toDraw, (posX * const.SQUAREDIM, posY * const.SQUAREDIM))
         self.occupied = False

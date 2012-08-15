@@ -2,6 +2,8 @@ import const
 import foe
 import pygame
 import random
+
+
 class BomberFoe(foe.Foe):
     """
     Defines the bomber Foe.
@@ -10,10 +12,10 @@ class BomberFoe(foe.Foe):
         pos = Initial position on the field
         spriteImg = texture where the sprite image is saved
     """
-    def __init__(self,pos,gameMap,spriteImg="bomberFoe.png"):
-        super(BomberFoe,self).__init__(pos,gameMap,spriteImg)
+    def __init__(self, pos, gameMap, spriteImg="bomberFoe.png"):
+        super(BomberFoe, self).__init__(pos, gameMap, spriteImg)
 
-    def update(self,gamemap):
+    def update(self, gamemap):
         #TODO cuando recibe un golpe
         #TODO cuando coloca una bomba
         #TODO gestionar colisiones
@@ -21,8 +23,10 @@ class BomberFoe(foe.Foe):
         if self.frameCount == const.BOMBERSPEED:
             if random.random() > const.BOMBERMOVERATE:
                 currentCell = self.getCurrentCell(gamemap)
-                self.move(random.choice(currentCell.availableDirection),gamemap)
+                self.move(
+                    random.choice(currentCell.availableDirection), gamemap)
         self.frameCount %= const.BOMBERSPEED
-    def setBomb(self,gamemap):
+
+    def setBomb(self, gamemap):
         #TODO no esta ni empezado
         currentCell = self.getCurrentCell(gamemap)
