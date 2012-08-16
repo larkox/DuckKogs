@@ -3,6 +3,7 @@ from pygame.locals import *
 import hero
 import pygame
 import foesGroup
+import cogsGroup
 import loop
 import const
 import sys
@@ -16,8 +17,11 @@ class GameLoop(loop.Loop):
         #TODO anyadir bien y en el txt al personaje principal
         mapFile = open(mapName, 'r')
         self.gameMap = gameMap.GameMap(mapFile, textureName)
+        self.cogs = cogsGroup.CogsGroup(self.gameMap)
+        #TODO cambiar toda la iniciacion del heroe
+        data = mapFile.readline().split(" ")
+        self.hero = hero.Hero((int(data[0]), int(data[1])), self.gameMap)
         self.foes = foesGroup.FoesGroup(mapFile, self.gameMap)
-        self.hero = hero.Hero((4, 1), self.gameMap)
         mapFile.close()
 
     def run(self, screen, clock):
@@ -37,9 +41,13 @@ class GameLoop(loop.Loop):
                         self.hero.move(3, self.gameMap)
             screen.blit(self.gameMap.mainSurface, (0, 0))
             #TODO recolocar el mapa
+            self.cogs.update()
             self.foes.update(self.gameMap)
+            self.cogs.draw(screen)
             self.foes.draw(screen)
-            if self.hero.update(self.gameMap):
+            if self.hero.update(self.gameMap, self.cogs):
+                loopExit = True
+            if len(self.cogs) == 0:
                 loopExit = True
             screen.blit(self.hero.image, self.hero.rect)
             pygame.display.flip()

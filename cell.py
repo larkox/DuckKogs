@@ -34,7 +34,10 @@ class Cell:
         textPosY = (self.left + self.right * 2) * const.SQUAREDIM
         toDraw = texture.subsurface((
             (textPosX, textPosY), (const.SQUAREDIM, const.SQUAREDIM)))
-        self.x = posX
-        self.y = posY
+        self.pos = (posX, posY)
         surface.blit(toDraw, (posX * const.SQUAREDIM, posY * const.SQUAREDIM))
         self.occupied = False
+        if textPosX + textPosY == 0:
+            self.hasExit = False
+        else:
+            self.hasExit = True
