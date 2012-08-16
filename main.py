@@ -42,7 +42,7 @@ def main():
     pygame.init()
     clock = pygame.time.Clock()
     screen = pygame.display.set_mode(
-            (const.SQUAREDIM * 5, const.SQUAREDIM * 5))
+            (800,450))
     pygame.display.set_caption("Duck kogs")
     #TODO mejorar la forma de poner la resolucion
     #TODO Intro y Menu

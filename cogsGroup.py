@@ -1,8 +1,9 @@
 import pygame
 import cog
+import dkGroups
 
 
-class CogsGroup(pygame.sprite.Group):
+class CogsGroup(dkGroups.DKGroups):
     def __init__(self, gameMap):
         super(CogsGroup, self).__init__()
         for line in gameMap.cells:

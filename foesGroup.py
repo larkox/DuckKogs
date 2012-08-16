@@ -3,9 +3,10 @@ import bomberFoe
 import fastFoe
 import angryFoe
 import masterFoe
+import dkGroups
 
 
-class FoesGroup(pygame.sprite.Group):
+class FoesGroup(dkGroups.DKGroups):
     """
     Group of Foes
     """
