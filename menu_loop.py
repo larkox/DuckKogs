@@ -1,4 +1,7 @@
-from pygame.locals import *
+"""
+Module that includes the class MenuLoop
+"""
+from pygame.locals import K_UP, K_DOWN, K_RETURN
 import pygame
 import loop
 import const
@@ -10,25 +13,26 @@ class MenuLoop(loop.Loop):
     The loop to play the game.
     """
     def __init__(self):
+        super(MenuLoop, self).__init__()
         self.background = pygame.Surface((100, 150)).convert()
         self.background.fill((0, 255, 0))
         self.text = pygame.Surface((100, 150)).convert_alpha()
         self.text.fill((0, 0, 0, 0))
         text = pygame.font.Font(None, 20)
-        textImg = text.render("New game", True, (0, 0, 255))
-        self.text.blit(textImg, (10, 10))
+        text_img = text.render("New game", True, (0, 0, 255))
+        self.text.blit(text_img, (10, 10))
         text = pygame.font.Font(None, 20)
-        textImg = text.render("Highscores", True, (0, 0, 255))
-        self.text.blit(textImg, (10, 40))
+        text_img = text.render("Highscores", True, (0, 0, 255))
+        self.text.blit(text_img, (10, 40))
         text = pygame.font.Font(None, 20)
-        textImg = text.render("Select Level", True, (0, 0, 255))
-        self.text.blit(textImg, (10, 70))
+        text_img = text.render("Select Level", True, (0, 0, 255))
+        self.text.blit(text_img, (10, 70))
         text = pygame.font.Font(None, 20)
-        textImg = text.render("Credits", True, (0, 0, 255))
-        self.text.blit(textImg, (10, 100))
+        text_img = text.render("Credits", True, (0, 0, 255))
+        self.text.blit(text_img, (10, 100))
         text = pygame.font.Font(None, 20)
-        textImg = text.render("Exit", True, (0, 0, 255))
-        self.text.blit(textImg, (10, 130))
+        text_img = text.render("Exit", True, (0, 0, 255))
+        self.text.blit(text_img, (10, 130))
         self.highlight = pygame.Surface((80, 20)).convert()
         self.highlight.fill((255, 0, 0))
 

@@ -1,43 +1,46 @@
-import pygame
+"""
+This module includes the Cell class
+"""
 import const
 
 
-class Cell:
+class Cell(object):
     """
     Manages every cell on the game map.
-        oFile: An oppened file with the map info, with the cursor on the
+        o_file: An oppened file with the map info, with the cursor on the
         beggining of a cell.
         pos: The position of the cell in the map.
         texture: The map texture surface.
         surface: The map surface, to draw the cell
     """
-    def __init__(self, oFile, (posX, posY), texture, surface):
+    def __init__(self, o_file, (pos_x, pos_y), texture, surface):
         #TODO pensar si hacen falta up down left right x y
         #We get if the direction is open or close
-        self.up = int(oFile.read(1))
-        self.down = int(oFile.read(1))
-        self.left = int(oFile.read(1))
-        self.right = int(oFile.read(1))
+        open_up = int(o_file.read(1))
+        open_down = int(o_file.read(1))
+        open_left = int(o_file.read(1))
+        open_right = int(o_file.read(1))
         #We get a list of available directions
-        self.availableDirection = []
-        if self.up:
-            self.availableDirection.append(0)
-        if self.right:
-            self.availableDirection.append(1)
-        if self.down:
-            self.availableDirection.append(2)
-        if self.left:
-            self.availableDirection.append(3)
-        oFile.read(1)
+        self.available_direction = []
+        if open_up:
+            self.available_direction.append(0)
+        if open_right:
+            self.available_direction.append(1)
+        if open_down:
+            self.available_direction.append(2)
+        if open_left:
+            self.available_direction.append(3)
+        o_file.read(1)
         #We get and write the chunk of the texture for this cell
-        textPosX = (self.up + self.down * 2) * const.SQUAREDIM
-        textPosY = (self.left + self.right * 2) * const.SQUAREDIM
-        toDraw = texture.subsurface((
-            (textPosX, textPosY), (const.SQUAREDIM, const.SQUAREDIM)))
-        self.pos = (posX, posY)
-        surface.blit(toDraw, (posX * const.SQUAREDIM, posY * const.SQUAREDIM))
+        text_pos_x = (open_up + open_down * 2) * const.SQUAREDIM
+        text_pos_y = (open_left + open_right * 2) * const.SQUAREDIM
+        to_draw = texture.subsurface((
+            (text_pos_x, text_pos_y), (const.SQUAREDIM, const.SQUAREDIM)))
+        self.pos = (pos_x, pos_y)
+        surface.blit(to_draw,
+            (pos_x * const.SQUAREDIM, pos_y * const.SQUAREDIM))
         self.occupied = False
-        if textPosX + textPosY == 0:
-            self.hasExit = False
+        if text_pos_x + text_pos_y == 0:
+            self.has_exit = False
         else:
-            self.hasExit = True
+            self.has_exit = True
