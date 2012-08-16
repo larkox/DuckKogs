@@ -10,7 +10,24 @@ def opt_new_game(screen, clock):
     """
     Switch option. Start the loop new game.
     """
-    game_loop.GameLoop("mapa1.txt", "texture1.png").run(screen, clock)
+    game_loop.GameLoop.LIVES = 3
+    stages = ["mapa1.txt",
+            "mapa2.txt",
+            "mapa3.txt",
+            "mapa4.txt"]
+    loop_exit = False
+    current_stage = 0
+    while not loop_exit:
+        exit_reason = game_loop.GameLoop(
+                stages[current_stage], "texture1.png").run(screen, clock)
+        if exit_reason == 0:
+            game_loop.GameLoop.LIVES -= 1
+        if exit_reason == 1:
+            current_stage += 1
+        if game_loop.GameLoop.LIVES < 0:
+            loop_exit = True
+        if current_stage > 3:
+            loop_exit = True
     return False
 
 
