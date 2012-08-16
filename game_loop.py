@@ -23,9 +23,7 @@ class GameLoop(loop.Loop):
         self.game_map = game_map.GameMap(map_file, texture_name)
         self.game_map_rect = self.game_map.main_surface.get_rect()
         self.cogs = cogs_group.CogsGroup(self.game_map)
-        #TODO cambiar toda la iniciacion del heroe
-        data = map_file.readline().split(" ")
-        self.hero = hero.Hero((int(data[0]), int(data[1])))
+        self.hero = hero.Hero(map_file)
         self.foes = foes_group.FoesGroup(map_file, self.game_map)
         map_file.close()
 
@@ -56,11 +54,6 @@ class GameLoop(loop.Loop):
                 loop_exit = True
             if len(self.cogs) == 0:
                 loop_exit = True
-            new_rect = (
-                    self.game_map_rect.left + self.hero.rect.left,
-                    self.game_map_rect.top + self.hero.rect.top,
-                    self.hero.rect.width,
-                    self.hero.rect.height)
-            screen.blit(self.hero.image, new_rect)
+            self.hero.draw(screen, self.game_map_rect)
             pygame.display.flip()
             clock.tick(const.FPS)
