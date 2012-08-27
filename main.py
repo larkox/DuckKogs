@@ -26,7 +26,7 @@ def opt_new_game(screen, clock):
             current_stage += 1
         if game_loop.GameLoop.LIVES < 0:
             loop_exit = True
-        if current_stage > 3:
+        if current_stage > len(stages)-1:
             loop_exit = True
     return False
 
