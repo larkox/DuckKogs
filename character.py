@@ -52,6 +52,10 @@ class Character(pygame.sprite.Sprite, object):
         Move the sprite in the given direction if possible.
         """
         current_cell = self.get_current_cell(game_map)
+        new_img_pos = (0,
+                (const.SQUAREDIM * direction) % self.texture.get_height())
+        self.image = self.texture.subsurface(new_img_pos,
+                (const.SQUAREDIM, const.SQUAREDIM))
         if direction in current_cell.available_direction:
             movement = Character.Switch[direction]
             self.pos = (self.pos[0] + movement[0], self.pos[1] + movement[1])
