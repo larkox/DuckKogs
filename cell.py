@@ -14,7 +14,6 @@ class Cell(object):
         surface: The map surface, to draw the cell
     """
     def __init__(self, o_file, (pos_x, pos_y), texture, surface):
-        #TODO pensar si hacen falta up down left right x y
         #We get if the direction is open or close
         open_up = int(o_file.read(1))
         open_down = int(o_file.read(1))

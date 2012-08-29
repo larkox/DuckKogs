@@ -1,7 +1,23 @@
 """
 Constants file
 """
+NEWGAMELIVES = 3
 SQUAREDIM = 80
 FPS = 60
 BOMBERSPEED = 30
 BOMBERMOVERATE = 0.3
+BOMBDROPRATE = 0.1
+STAGESLIST = [ #"mapa1.txt",
+        "mapa2.txt",
+        "mapa3.txt",
+        "mapa4.txt"]
+SCREENWIDTH = 800
+SCREENHEIGHT = 450
+CAPTION = "Duck Kogs"
+LEFTPANELIMG = "leftPanel.png"
+CENTRALPANELIMG = "centralPanel.png"
+RIGHTPANELIMG = "rightPanel.png"
+LEFTPANELPOS = (0, 0)
+CENTRALPANELPOS = (SCREENWIDTH*0.1, 0)
+RIGHTPANELPOS = (SCREENWIDTH*0.9, 0)
+MENUOPTIONSCOUNT = 5

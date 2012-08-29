@@ -8,7 +8,7 @@ class Loop(object):
     def __init__(self):
         pass
 
-    def run(self):
+    def run(self, screen, clock):
         """
         Runs the bucle
         """

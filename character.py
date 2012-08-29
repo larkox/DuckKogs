@@ -31,6 +31,7 @@ class Character(pygame.sprite.Sprite, object):
         super(Character, self).__init__()
         self.pos = pos
         self.texture = pygame.image.load(sprite_img).convert_alpha()
+        #TODO Arreglar para multiples sprites
         self.rect = pygame.Rect(
             (pos[0] * const.SQUAREDIM, pos[1] * const.SQUAREDIM),
             (const.SQUAREDIM, const.SQUAREDIM))

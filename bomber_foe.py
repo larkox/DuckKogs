@@ -17,22 +17,23 @@ class BomberFoe(foe.Foe):
     def __init__(self, pos, game_map, sprite_img="bomberFoe.png"):
         super(BomberFoe, self).__init__(pos, game_map, sprite_img)
 
-    def update(self, gamemap):
+    def update(self, game_map):
         """
         Update the sprite
         """
         #TODO cuando recibe un golpe
         #TODO cuando coloca una bomba
-        #TODO gestionar colisiones
         self.frame_count += 1
         if self.frame_count == const.BOMBERSPEED:
-            if random.random() > const.BOMBERMOVERATE:
-                current_cell = self.get_current_cell(gamemap)
+            current_cell = self.get_current_cell(game_map)
+            if random.random() < const.BOMBERMOVERATE:
                 self.move(
-                    random.choice(current_cell.available_direction), gamemap)
+                    random.choice(current_cell.available_direction), game_map)
+            if random.random() < const.BOMBDROPRATE:
+                self.set_bomb(game_map, current_cell)
         self.frame_count %= const.BOMBERSPEED
 
-    def set_bomb(self, game_map):
+    def set_bomb(self, game_map, cell):
         """
         Deploys a Bomb on its location.
         """

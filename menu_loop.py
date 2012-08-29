@@ -14,6 +14,7 @@ class MenuLoop(loop.Loop):
     """
     def __init__(self):
         super(MenuLoop, self).__init__()
+        #TODO TEXTOS Y POSICIONES
         self.background = pygame.Surface((100, 150)).convert()
         self.background.fill((0, 255, 0))
         self.text = pygame.Surface((100, 150)).convert_alpha()
@@ -44,9 +45,9 @@ class MenuLoop(loop.Loop):
                     sys.exit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == K_UP:
-                        result = (result - 1) % 5
+                        result = (result - 1) % const.MENUOPTIONSCOUNT
                     if event.key == K_DOWN:
-                        result = (result + 1) % 5
+                        result = (result + 1) % const.MENUOPTIONSCOUNT
                     if event.key == K_RETURN:
                         return result
             screen.blit(self.background, (0, 0))

@@ -19,22 +19,24 @@ class GameLoop(loop.Loop):
 
     LIVES = 0
 
-    def __init__(self, map_name, texture_name):
+    def __init__(self, map_name):
         super(GameLoop, self).__init__()
         map_file = open(map_name, 'r')
+        texture_name = map_file.readline().rstrip()
         self.game_map = game_map.GameMap(map_file, texture_name)
         self.game_map_rect = self.game_map.main_surface.get_rect()
         self.cogs = cogs_group.CogsGroup(self.game_map)
         self.hero = hero.Hero(map_file)
         self.foes = foes_group.FoesGroup(map_file, self.game_map)
         map_file.close()
-        self.background = pygame.Surface((800, 450))
-        img = pygame.image.load("leftPanel.png").convert()
-        self.background.blit(img, (0, 0))
-        img = pygame.image.load("centralPanel.png").convert()
-        self.background.blit(img, (80, 0))
-        img = pygame.image.load("rightPanel.png").convert()
-        self.background.blit(img, (720, 0))
+        self.background = pygame.Surface((
+            const.SCREENWIDTH, const.SCREENHEIGHT))
+        img = pygame.image.load(const.LEFTPANELIMG).convert()
+        self.background.blit(img, const.LEFTPANELPOS)
+        img = pygame.image.load(const.CENTRALPANELIMG).convert()
+        self.background.blit(img, const.CENTRALPANELPOS)
+        img = pygame.image.load(const.RIGHTPANELIMG).convert()
+        self.background.blit(img, const.RIGHTPANELPOS)
 
     def run(self, screen, clock):
         loop_exit = False
@@ -55,6 +57,7 @@ class GameLoop(loop.Loop):
                     if event.key == K_LEFT:
                         self.hero.move(3, self.game_map)
             screen.blit(self.background, (0, 0))
+            #TODO Mejorar lo de usar imagenes en vez de fuentes
             screen.blit(
                     pygame.font.Font(None, 60).render(
                         "%.0f" % time, True, (0, 0, 255)),
