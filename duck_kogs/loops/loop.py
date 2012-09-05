@@ -1,5 +1,5 @@
 """
-Module that includes the loop class
+Module that includes the loop base class
 """
 class Loop(object):
     """
@@ -13,3 +13,5 @@ class Loop(object):
         Runs the bucle
         """
         pass
+
+

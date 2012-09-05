@@ -2,27 +2,26 @@
 Main module of the game Duck Kogs
 """
 import pygame
-import game_loop
-import menu_loop
-import const
+from duck_kogs import loops
+from duck_kogs import const
 
 
 def opt_new_game(screen, clock):
     """
     Switch option. Start the loop new game.
     """
-    game_loop.GameLoop.LIVES = const.NEWGAMELIVES
-    stages = const.STAGESLIST
+    loops.game_loop.GameLoop.LIVES = const.NEWGAMELIVES
+    stages = map(lambda x: const.STAGESDIR+x, const.STAGESLIST)
     loop_exit = False
     current_stage = 0
     while not loop_exit:
-        exit_reason = game_loop.GameLoop(
+        exit_reason = loops.game_loop.GameLoop(
                 stages[current_stage]).run(screen, clock)
         if exit_reason == 0:
-            game_loop.GameLoop.LIVES -= 1
+            loops.game_loop.GameLoop.LIVES -= 1
         if exit_reason == 1:
             current_stage += 1
-        if game_loop.GameLoop.LIVES < 0:
+        if loops.game_loop.GameLoop.LIVES < 0:
             loop_exit = True
         if current_stage > len(stages)-1:
             loop_exit = True
@@ -77,7 +76,7 @@ def main():
     pygame.display.set_caption(const.CAPTION)
     #TODO Intro
     while not user_exit:
-        user_exit = SWITCH[menu_loop.MenuLoop().run(screen, clock)](
+        user_exit = SWITCH[loops.menu_loop.MenuLoop().run(screen, clock)](
                 screen, clock)
 
 if __name__ == "__main__":

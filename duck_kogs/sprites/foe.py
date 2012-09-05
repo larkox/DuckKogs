@@ -21,6 +21,8 @@ class Foe(character.Character):
         if new_cell.occupied:
             self.pos = pos
             self.rect = rect
+            return False
         else:
             cell.occupied = False
             new_cell.occupied = True
+            return True

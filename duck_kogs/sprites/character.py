@@ -2,7 +2,7 @@
 Module that includes the Character class
 """
 import pygame
-import const
+from duck_kogs import const
 
 
 def dir_up():
@@ -30,7 +30,8 @@ class Character(pygame.sprite.Sprite, object):
     def __init__(self, pos, sprite_img):
         super(Character, self).__init__()
         self.pos = pos
-        self.texture = pygame.image.load(sprite_img).convert_alpha()
+        sprite_file = const.IMAGESDIR + sprite_img
+        self.texture = pygame.image.load(sprite_file).convert_alpha()
         #TODO Arreglar para multiples sprites
         self.rect = pygame.Rect(
             (pos[0] * const.SQUAREDIM, pos[1] * const.SQUAREDIM),

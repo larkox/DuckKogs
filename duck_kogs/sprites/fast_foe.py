@@ -1,5 +1,5 @@
 import character
-import const
+from duck_kogs import const
 import pygame
 import random
 

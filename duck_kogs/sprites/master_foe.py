@@ -1,10 +1,12 @@
 import character
-import const
+from duck_kogs import const
 import pygame
 import random
 
 
-class AngryFoe(character.Character):
-    #TODO No implementada, copia del bomber
+class MasterFoe(character.Character):
     def __init__(self, pos, spriteImg="bomberFoe.png"):
         super(pos, spriteImg)
+
+    def update(self, gamemap):
+        pass

@@ -7,6 +7,7 @@ FPS = 60
 BOMBERSPEED = 30
 BOMBERMOVERATE = 0.3
 BOMBDROPRATE = 0.1
+STAGESDIR = "maps/"
 STAGESLIST = [ #"mapa1.txt",
         "mapa2.txt",
         "mapa3.txt",
@@ -14,9 +15,10 @@ STAGESLIST = [ #"mapa1.txt",
 SCREENWIDTH = 800
 SCREENHEIGHT = 450
 CAPTION = "Duck Kogs"
-LEFTPANELIMG = "leftPanel.png"
-CENTRALPANELIMG = "centralPanel.png"
-RIGHTPANELIMG = "rightPanel.png"
+IMAGESDIR = "img/"
+LEFTPANELIMG = IMAGESDIR + "leftPanel.png"
+CENTRALPANELIMG = IMAGESDIR + "centralPanel.png"
+RIGHTPANELIMG = IMAGESDIR + "rightPanel.png"
 LEFTPANELPOS = (0, 0)
 CENTRALPANELPOS = (SCREENWIDTH*0.1, 0)
 RIGHTPANELPOS = (SCREENWIDTH*0.9, 0)

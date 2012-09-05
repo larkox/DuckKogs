@@ -2,9 +2,9 @@
 Module that include the FoesGroup class
 """
 import bomber_foe
-import fastFoe
-import angryFoe
-import masterFoe
+import fast_foe
+import angry_foe
+import master_foe
 import dk_groups
 
 
@@ -18,19 +18,19 @@ def fast():
     """
     Switch element. Returns the constructor of the fast foe.
     """
-    return fastFoe.FastFoe
+    return fast_foe.FastFoe
 
 def angry():
     """
     Switch element. Returns the constructor of the angry foe.
     """
-    return angryFoe.AngryFoe
+    return angry_foe.AngryFoe
 
 def master():
     """
     Switch element. Returns the constructor of the master foe.
     """
-    return masterFoe.MasterFoe
+    return master_foe.MasterFoe
 
 class FoesGroup(dk_groups.DKGroups):
     """

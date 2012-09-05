@@ -1,7 +1,7 @@
 """
 Module that contains the BomberFoe class
 """
-import const
+from duck_kogs import const
 import foe
 import random
 
@@ -27,15 +27,15 @@ class BomberFoe(foe.Foe):
         if self.frame_count == const.BOMBERSPEED:
             current_cell = self.get_current_cell(game_map)
             if random.random() < const.BOMBERMOVERATE:
-                self.move(
-                    random.choice(current_cell.available_direction), game_map)
-            if random.random() < const.BOMBDROPRATE:
-                self.set_bomb(game_map, current_cell)
+                if self.move(
+                    random.choice(current_cell.available_direction), game_map):
+                    if random.random() < const.BOMBDROPRATE:
+                        self.set_bomb(game_map, current_cell)
         self.frame_count %= const.BOMBERSPEED
 
     def set_bomb(self, game_map, cell):
         """
         Deploys a Bomb on its location.
         """
-        #TODO no esta ni empezado
         pass
+	

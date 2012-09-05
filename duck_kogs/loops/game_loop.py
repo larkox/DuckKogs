@@ -1,14 +1,14 @@
 """
 Module that contains the GameLoop class
 """
-import game_map
+from duck_kogs import game_map
 from pygame.locals import K_UP, K_RIGHT, K_LEFT, K_DOWN
-import hero
+from duck_kogs.sprites import hero
 import pygame
-import foes_group
-import cogs_group
+from duck_kogs.sprites import foes_group
+from duck_kogs.sprites import cogs_group
 import loop
-import const
+from duck_kogs import const
 import sys
 
 
@@ -22,7 +22,7 @@ class GameLoop(loop.Loop):
     def __init__(self, map_name):
         super(GameLoop, self).__init__()
         map_file = open(map_name, 'r')
-        texture_name = map_file.readline().rstrip()
+        texture_name = const.IMAGESDIR + map_file.readline().rstrip()
         self.game_map = game_map.GameMap(map_file, texture_name)
         self.game_map_rect = self.game_map.main_surface.get_rect()
         self.cogs = cogs_group.CogsGroup(self.game_map)

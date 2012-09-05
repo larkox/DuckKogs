@@ -4,7 +4,7 @@ Module that includes the class MenuLoop
 from pygame.locals import K_UP, K_DOWN, K_RETURN
 import pygame
 import loop
-import const
+from duck_kogs import const
 import sys
 
 
