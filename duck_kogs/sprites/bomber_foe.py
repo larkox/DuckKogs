@@ -2,7 +2,7 @@
 Module that contains the BomberFoe class
 """
 from duck_kogs import const
-import foe
+from duck_kogs.sprites import foe
 import random
 
 

@@ -1,13 +1,13 @@
 """
 Module that contains the GameLoop class
 """
-from duck_kogs import game_map
 from pygame.locals import K_UP, K_RIGHT, K_LEFT, K_DOWN
 from duck_kogs.sprites import hero
 import pygame
+from duck_kogs import game_map
 from duck_kogs.sprites import foes_group
 from duck_kogs.sprites import cogs_group
-import loop
+from duck_kogs.loops import loop
 from duck_kogs import const
 import sys
 

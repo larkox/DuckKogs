@@ -1,7 +1,7 @@
 """
 Module that includes the Cog class
 """
-import character
+from duck_kogs.sprites import character
 
 
 class Cog(character.Character, object):

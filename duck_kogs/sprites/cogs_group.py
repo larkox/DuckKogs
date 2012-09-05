@@ -1,8 +1,8 @@
 """
 Module that includes the Cogs_group class
 """
-import cog
-import dk_groups
+from duck_kogs.sprites import cog
+from duck_kogs.sprites import dk_groups
 
 
 class CogsGroup(dk_groups.DKGroups):

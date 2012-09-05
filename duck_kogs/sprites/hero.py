@@ -1,7 +1,7 @@
 """
 Module that includes the Hero class
 """
-import character
+from duck_kogs.sprites import character
 
 
 class Hero(character.Character):

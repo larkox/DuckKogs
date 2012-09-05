@@ -3,7 +3,7 @@ Module that includes the GameMap class
 and Cell class
 """
 import pygame
-import const
+from duck_kogs import const
 
 
 class Cell(object):

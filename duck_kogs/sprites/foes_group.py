@@ -1,11 +1,11 @@
 """
 Module that include the FoesGroup class
 """
-import bomber_foe
-import fast_foe
-import angry_foe
-import master_foe
-import dk_groups
+from duck_kogs.sprites import bomber_foe
+from duck_kogs.sprites import fast_foe
+from duck_kogs.sprites import angry_foe
+from duck_kogs.sprites import master_foe
+from duck_kogs.sprites import dk_groups
 
 
 def bomber():

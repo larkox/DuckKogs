@@ -1,7 +1,7 @@
 """
 Module that includes the Foe class
 """
-import character
+from duck_kogs.sprites import character
 
 
 class Foe(character.Character):
