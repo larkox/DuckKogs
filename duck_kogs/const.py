@@ -8,8 +8,9 @@ BOMBERSPEED = 30
 BOMBERMOVERATE = 0.3
 BOMBDROPRATE = 0.5
 BOMBTIME = FPS*3
+ANGRYSPEED = 10
 STAGESDIR = "maps/"
-STAGESLIST = [ #"mapa1.txt",
+STAGESLIST = [ "mapa1.txt",
         "mapa2.txt",
         "mapa3.txt",
         "mapa4.txt"]

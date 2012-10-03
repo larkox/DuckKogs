@@ -2,7 +2,7 @@
 Module that includes the Hero class
 """
 from duck_kogs.sprites import character
-
+from duck_kogs import signals
 
 class Hero(character.Character):
     """
@@ -29,3 +29,6 @@ class Hero(character.Character):
         """
         surface.blit(self.image, (rect.left + self.rect.left,
             rect.top + self.rect.top, self.rect.width, self.rect.height))
+    def move(self, direction, game_map):
+        super(Hero, self).move(direction, game_map)
+        signals.player_movement_signal.send(self, pos = self.pos, cells = game_map.cells)

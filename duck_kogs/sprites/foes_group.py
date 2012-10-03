@@ -41,13 +41,12 @@ class FoesGroup(dk_groups.DKGroups):
             3: angry(),
             4: master()}
     instance = None
-    is_init = False
     def __new__(cls, *args, **kargs):
         if cls.instance is None:
             cls.instance = object.__new__(cls, *args, **kargs)
         return cls.instance
     def __init__(self, map_file = None, game_map = None):
-        if not self.is_init:
+        if map_file:
             super(FoesGroup, self).__init__()
             for line in map_file:
                 #file format: Type PosX PosY
