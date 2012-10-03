@@ -40,15 +40,23 @@ class FoesGroup(dk_groups.DKGroups):
             2: fast(),
             3: angry(),
             4: master()}
-
-    def __init__(self, map_file, game_map):
-        super(FoesGroup, self).__init__()
-        for line in map_file:
-            #file format: Type PosX PosY
-            data = line.split(" ")
-            new_sprite = FoesGroup.Switch[int(data[0])](
-                    (int(data[1]), int(data[2])), game_map)
-            self.add(new_sprite)
+    instance = None
+    is_init = False
+    def __new__(cls, *args, **kargs):
+        if cls.instance is None:
+            cls.instance = object.__new__(cls, *args, **kargs)
+        return cls.instance
+    def __init__(self, map_file = None, game_map = None):
+        if not self.is_init:
+            super(FoesGroup, self).__init__()
+            for line in map_file:
+                #file format: Type PosX PosY
+                data = line.split(" ")
+                new_sprite = FoesGroup.Switch[int(data[0])](
+                        (int(data[1]), int(data[2])), game_map)
+                self.add(new_sprite)
+        else:
+            pass
 
     def update(self, game_map):
         """
@@ -56,3 +64,9 @@ class FoesGroup(dk_groups.DKGroups):
         """
         for foe in self.sprites():
             foe.update(game_map)
+
+    def get_on_pos(self, pos):
+        for i in self.sprites():
+            if i.pos == pos:
+                return i
+        return None

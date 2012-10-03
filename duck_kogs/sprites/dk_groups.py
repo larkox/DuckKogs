@@ -8,9 +8,6 @@ class DKGroups(pygame.sprite.Group, object):
     """
     Parent class from he sprite groups used in Duck Kogs game
     """
-    def __init__(self):
-        super(DKGroups, self).__init__()
-
     def draw(self, surface, game_map_rect):
         """
         Draws the sprites on the surface according the game map rectangle

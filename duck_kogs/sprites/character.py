@@ -76,4 +76,4 @@ class Character(pygame.sprite.Sprite, object):
         """
         Get the current cell of the sprite on the game map
         """
-        return game_map.cells[self.pos[1]][self.pos[0]]
+        return game_map.get_cell(self.pos)

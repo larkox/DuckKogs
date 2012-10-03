@@ -24,13 +24,13 @@ class Cell(object):
         #We get a list of available directions
         self.available_direction = []
         if open_up:
-            self.available_direction.append(0)
+            self.available_direction.append(const.UP)
         if open_right:
-            self.available_direction.append(1)
+            self.available_direction.append(const.RIGHT)
         if open_down:
-            self.available_direction.append(2)
+            self.available_direction.append(const.DOWN)
         if open_left:
-            self.available_direction.append(3)
+            self.available_direction.append(const.LEFT)
         o_file.read(1)
         #We get and write the chunk of the texture for this cell
         text_pos_x = (open_up + open_down * 2) * const.SQUAREDIM
@@ -41,6 +41,7 @@ class Cell(object):
         surface.blit(to_draw,
             (pos_x * const.SQUAREDIM, pos_y * const.SQUAREDIM))
         self.occupied = False
+        self.occupied_by = None
         if text_pos_x + text_pos_y == 0:
             self.has_exit = False
         else:
@@ -65,3 +66,5 @@ class GameMap:
                 line.append(Cell(
                     map_file, (pos_x, pos_y), texture, self.main_surface))
             self.cells.append(line)
+    def get_cell(self, pos):
+        return self.cells[pos[1]][pos[0]]

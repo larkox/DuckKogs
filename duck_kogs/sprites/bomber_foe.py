@@ -3,6 +3,8 @@ Module that contains the BomberFoe class
 """
 from duck_kogs import const
 from duck_kogs.sprites import foe
+from duck_kogs.sprites import bomb
+from duck_kogs.sprites import bombs_group
 import random
 
 
@@ -22,7 +24,7 @@ class BomberFoe(foe.Foe):
         Update the sprite
         """
         #TODO cuando recibe un golpe
-        #TODO cuando coloca una bomba
+        super(BomberFoe, self).update(game_map)
         self.frame_count += 1
         if self.frame_count == const.BOMBERSPEED:
             current_cell = self.get_current_cell(game_map)
@@ -37,5 +39,5 @@ class BomberFoe(foe.Foe):
         """
         Deploys a Bomb on its location.
         """
+        bombs_group.BombsGroup().add(bomb.Bomb(cell.pos))
         pass
-	
