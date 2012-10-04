@@ -23,7 +23,6 @@ class BomberFoe(foe.Foe):
         """
         Update the sprite
         """
-        #TODO cuando recibe un golpe
         super(BomberFoe, self).update(game_map)
         self.frame_count += 1
         if self.frame_count == const.BOMBERSPEED:
@@ -32,12 +31,12 @@ class BomberFoe(foe.Foe):
                 if self.move(
                     random.choice(current_cell.available_direction), game_map):
                     if random.random() < const.BOMBDROPRATE:
-                        self.set_bomb(game_map, current_cell)
+                        BomberFoe.set_bomb(current_cell)
         self.frame_count %= const.BOMBERSPEED
 
-    def set_bomb(self, game_map, cell):
+    @classmethod
+    def set_bomb(cls, cell):
         """
         Deploys a Bomb on its location.
         """
         bombs_group.BombsGroup().add(bomb.Bomb(cell.pos))
-        pass

@@ -65,6 +65,9 @@ class FoesGroup(dk_groups.DKGroups):
             foe.update(game_map)
 
     def get_on_pos(self, pos):
+        """
+        Get the foe on position pos
+        """
         for i in self.sprites():
             if i.pos == pos:
                 return i

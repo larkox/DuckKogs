@@ -67,4 +67,7 @@ class GameMap:
                     map_file, (pos_x, pos_y), texture, self.main_surface))
             self.cells.append(line)
     def get_cell(self, pos):
+        """
+        Returns a cell on position pos
+        """
         return self.cells[pos[1]][pos[0]]

@@ -35,6 +35,10 @@ class Foe(character.Character):
                 return True
 
     def update(self, game_map):
+        """
+        Updates the state of the foe
+        """
+        super(Foe, self).update(game_map)
         if self.stunned:
             self.stun_frame_count += 1
             if self.stun_frame_count == const.STUNTIME:
@@ -45,5 +49,8 @@ class Foe(character.Character):
                 cell.occupied_by = self
 
     def stun(self):
+        """
+        Get a foe stunned
+        """
         self.stun_frame_count = 0
         self.stunned = True

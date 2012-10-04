@@ -1,7 +1,6 @@
 """
 Module that includes the Explosions_Group class
 """
-from duck_kogs.sprites import explosion
 from duck_kogs.sprites import dk_groups
 
 

@@ -1,3 +1,6 @@
+"""
+Signals used in the game
+"""
 from pysignals import Signal
 
-player_movement_signal = Signal()
+PLAYER_MOVEMENT_SIGNAL = Signal()

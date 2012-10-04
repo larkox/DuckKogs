@@ -31,4 +31,5 @@ class Hero(character.Character):
             rect.top + self.rect.top, self.rect.width, self.rect.height))
     def move(self, direction, game_map):
         super(Hero, self).move(direction, game_map)
-        signals.player_movement_signal.send(self, pos = self.pos, cells = game_map.cells)
+        signals.PLAYER_MOVEMENT_SIGNAL.send(
+                self, pos = self.pos, cells = game_map.cells)

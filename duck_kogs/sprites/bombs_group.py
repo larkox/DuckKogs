@@ -1,7 +1,6 @@
 """
 Module that includes the Bombs_group class
 """
-from duck_kogs.sprites import bomb
 from duck_kogs.sprites import dk_groups
 
 

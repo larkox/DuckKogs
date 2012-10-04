@@ -11,6 +11,7 @@ from duck_kogs.sprites import bombs_group
 from duck_kogs.sprites import explosions_group
 from duck_kogs.loops import loop
 from duck_kogs import const
+from duck_kogs import signals
 import sys
 
 
@@ -29,6 +30,8 @@ class GameLoop(loop.Loop):
         self.game_map_rect = self.game_map.main_surface.get_rect()
         self.cogs = cogs_group.CogsGroup(self.game_map)
         self.hero = hero.Hero(map_file)
+        signals.PLAYER_MOVEMENT_SIGNAL.send(self.hero, pos = self.hero.pos,
+                cells = self.game_map.cells)
         self.foes = foes_group.FoesGroup(map_file, self.game_map)
         self.bombs = bombs_group.BombsGroup()
         self.explosions = explosions_group.ExplosionsGroup()
@@ -85,13 +88,12 @@ class GameLoop(loop.Loop):
             self.bombs.draw(screen, self.game_map_rect)
             self.foes.draw(screen, self.game_map_rect)
             self.explosions.draw(screen, self.game_map_rect)
-            #TODO hacer las cosas bien con el heroe
             if self.hero.update(self.game_map, self.cogs):
                 loop_exit = True
-                exit_reason = 0 #The hero died
+                exit_reason = const.EXITDIED
             if len(self.cogs) == 0:
                 loop_exit = True
-                exit_reason = 1 #The hero won
+                exit_reason = const.EXITWON
             self.hero.draw(screen, self.game_map_rect)
             pygame.display.flip()
             clock.tick(const.FPS)

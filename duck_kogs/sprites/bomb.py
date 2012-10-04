@@ -32,11 +32,16 @@ class Bomb(character.Character, object):
     def move(self, direction, game_map):
         pass
 
-    def explode(self,game_map):
+    def explode(self, game_map):
+        """
+        Explodes the bomb
+        """
         cell = self.get_current_cell(game_map)
-        explosions_group.ExplosionsGroup().add(explosion.Explosion(self.pos, const.EXPLOSIONCENTER, game_map))
+        explosions_group.ExplosionsGroup().add(explosion.Explosion(
+            self.pos, const.EXPLOSIONCENTER, game_map))
         for i in cell.available_direction:
             movement = Bomb.SWITCH[i]
-            cell_location = ((self.pos[0] + movement[0]) % (game_map.width), (self.pos[1] + movement[1]) % (game_map.height))
-            explosions_group.ExplosionsGroup().add(explosion.Explosion(cell_location, i, game_map))
-        pass
+            cell_location = ((self.pos[0] + movement[0]) % (game_map.width),
+                    (self.pos[1] + movement[1]) % (game_map.height))
+            explosions_group.ExplosionsGroup().add(explosion.Explosion(
+                cell_location, i, game_map))

@@ -17,9 +17,9 @@ def opt_new_game(screen, clock):
     while not loop_exit:
         exit_reason = loops.game_loop.GameLoop(
                 stages[current_stage]).run(screen, clock)
-        if exit_reason == 0:
+        if exit_reason == const.EXITDIED:
             loops.game_loop.GameLoop.LIVES -= 1
-        if exit_reason == 1:
+        if exit_reason == const.EXITWON:
             current_stage += 1
         if loops.game_loop.GameLoop.LIVES < 0:
             loop_exit = True
