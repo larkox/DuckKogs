@@ -17,13 +17,15 @@ class FastFoe(foe.Foe):
         self.speed = const.SLOWFASTFOE
 
     def update(self, game_map):
+        super(FastFoe, self).update(game_map)
         (direction, self.speed) = self.update_speed(game_map)
-        if self.frame_count > self.speed:
+        if (self.frame_count > self.speed) and not self.moving:
             self.frame_count = 0
-            if direction == -1:
+            if direction == const.FASTFOERANDOM:
                 direction = random.choice(self.get_current_cell(
                     game_map).available_direction)
-            self.move(direction, game_map)
+            if direction != const.FASTFOESTOP:
+                self.move(direction, game_map)
         self.frame_count += 1
 
     def update_speed(self, game_map):
@@ -32,6 +34,8 @@ class FastFoe(foe.Foe):
         regarding the player position
         """
         map_dimension = (game_map.width, game_map.height)
+        if (FastFoe.HEROPOS == self.pos):
+            return (const.FASTFOESTOP, const.FASTFASTFOE)
         if (FastFoe.HEROPOS[0] == self.pos[0]):
             choice_movement = [(0, 1), (0, -1)]
             choice_direction = [const.DOWN, const.UP]
@@ -41,7 +45,7 @@ class FastFoe(foe.Foe):
             choice_direction = [const.RIGHT, const.LEFT]
             pos_index = 0
         else:
-            return (-1, const.SLOWFASTFOE)
+            return (const.FASTFOERANDOM, const.SLOWFASTFOE)
 
         choice_lenght = [0, 0]
         if (FastFoe.HEROPOS[pos_index] > self.pos[pos_index]):

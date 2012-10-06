@@ -22,6 +22,7 @@ class AngryFoe(foe.Foe):
         super(AngryFoe, self).__init__(pos, game_map, sprite_img)
 
     def update(self, game_map):
+        super(AngryFoe, self).update(game_map)
         if self.frame_count == const.ANGRYSPEED:
             self.move(0, game_map)
             self.frame_count = 0

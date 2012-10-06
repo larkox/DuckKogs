@@ -10,6 +10,7 @@ from duck_kogs.sprites import cogs_group
 from duck_kogs.sprites import bombs_group
 from duck_kogs.sprites import explosions_group
 from duck_kogs.loops import loop
+from duck_kogs.loops import die_loop
 from duck_kogs import const
 from duck_kogs import signals
 import sys
@@ -54,18 +55,20 @@ class GameLoop(loop.Loop):
         map_frame_index = 0
         frame_count = 0
         while not loop_exit:
+            game_surface = pygame.Surface(self.game_map.main_surface[0].get_size()).convert_alpha()
+            game_surface.fill((0,0,0,0))
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
-                if event.type == pygame.KEYDOWN:
-                    if event.key == K_UP:
-                        self.hero.move(0, self.game_map)
-                    if event.key == K_RIGHT:
-                        self.hero.move(1, self.game_map)
-                    if event.key == K_DOWN:
-                        self.hero.move(2, self.game_map)
-                    if event.key == K_LEFT:
-                        self.hero.move(3, self.game_map)
+            pressed = pygame.key.get_pressed()
+            if pressed[K_UP]:
+                self.hero.next_move = const.UP
+            elif pressed[K_RIGHT]:
+                self.hero.next_move = const.RIGHT
+            elif pressed[K_DOWN]:
+                self.hero.next_move = const.DOWN
+            elif pressed[K_LEFT]:
+                self.hero.next_move = const.LEFT
             screen.blit(self.background, (0, 0))
             #TODO Mejorar lo de usar imagenes en vez de fuentes
             screen.blit(
@@ -84,25 +87,28 @@ class GameLoop(loop.Loop):
                 map_frame_index = (map_frame_index + 1) % self.game_map.frames
                 frame_count = 0
             screen.blit(self.game_map.main_surface[map_frame_index], self.game_map_rect)
-            self.cogs.update()
+            self.cogs.update(self.game_map)
             self.foes.update(self.game_map)
             self.bombs.update(self.game_map)
             self.explosions.update(self.game_map)
-            self.cogs.draw(screen, self.game_map_rect)
-            self.bombs.draw(screen, self.game_map_rect)
-            self.foes.draw(screen, self.game_map_rect)
-            self.explosions.draw(screen, self.game_map_rect)
-            if self.hero.update(self.game_map, self.cogs):
+            self.cogs.draw(game_surface)
+            self.bombs.draw(game_surface)
+            self.foes.draw(game_surface)
+            self.explosions.draw(game_surface)
+            self.hero.update(self.game_map, self.cogs)
+            if not self.hero.alive:
                 loop_exit = True
                 exit_reason = const.EXITDIED
-            if len(self.cogs) == 0:
+            elif len(self.cogs) == 0:
                 loop_exit = True
                 exit_reason = const.EXITWON
-            self.hero.draw(screen, self.game_map_rect)
+            self.hero.draw(game_surface)
+            screen.blit(game_surface, self.game_map_rect)
             pygame.display.flip()
             clock.tick(const.FPS)
             time += 1/float(const.FPS)
             frame_count += 1
+        die_loop.DieLoop().run(screen, clock)
         self.bombs.empty()
         self.explosions.empty()
         return exit_reason

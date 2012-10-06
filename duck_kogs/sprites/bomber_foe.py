@@ -18,6 +18,7 @@ class BomberFoe(foe.Foe):
     """
     def __init__(self, pos, game_map, sprite_img="bomberFoe.png"):
         super(BomberFoe, self).__init__(pos, game_map, sprite_img)
+        self.movement_speed = 50
 
     def update(self, game_map):
         """

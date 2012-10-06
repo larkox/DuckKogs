@@ -15,10 +15,11 @@ class Foe(character.Character):
         self.get_current_cell(game_map).occupied_by = self
         self.stun_frame_count = 0
         self.stunned = False
+        self.prev_cell = None
 
     def move(self, direction, game_map):
         if not self.stunned:
-            cell = self.get_current_cell(game_map)
+            self.prev_cell = self.get_current_cell(game_map)
             pos = self.pos
             rect = self.rect.copy()
             super(Foe, self).move(direction, game_map)
@@ -28,11 +29,8 @@ class Foe(character.Character):
                 self.rect = rect
                 return False
             else:
-                cell.occupied = False
-                cell.occupied_by = None
-                new_cell.occupied = True
-                new_cell.occupied_by = self
                 return True
+
 
     def update(self, game_map):
         """
@@ -47,6 +45,13 @@ class Foe(character.Character):
                 cell = self.get_current_cell(game_map)
                 cell.occupied = True
                 cell.occupied_by = self
+        elif (self.moving and (self.movement_frame_count ==
+            self.movement_speed/2)):
+            new_cell = self.get_current_cell(game_map)
+            self.prev_cell.occupied = False
+            self.prev_cell.occupied_by = None
+            new_cell.occupied = True
+            new_cell.occupied_by = self
 
     def stun(self):
         """
