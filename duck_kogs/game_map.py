@@ -15,7 +15,7 @@ class Cell(object):
         texture: The map texture surface.
         surface: The map surface, to draw the cell
     """
-    def __init__(self, o_file, (pos_x, pos_y), texture, surface):
+    def __init__(self, o_file, (pos_x, pos_y), texture, surface, frames):
         #We get if the direction is open or close
         open_up = int(o_file.read(1))
         open_down = int(o_file.read(1))
@@ -35,11 +35,12 @@ class Cell(object):
         #We get and write the chunk of the texture for this cell
         text_pos_x = (open_up + open_down * 2) * const.SQUAREDIM
         text_pos_y = (open_left + open_right * 2) * const.SQUAREDIM
-        to_draw = texture.subsurface((
-            (text_pos_x, text_pos_y), (const.SQUAREDIM, const.SQUAREDIM)))
+        for i in range(frames):
+            to_draw = texture[i].subsurface((
+                (text_pos_x, text_pos_y), (const.SQUAREDIM, const.SQUAREDIM)))
+            surface[i].blit(to_draw,
+                (pos_x * const.SQUAREDIM, pos_y * const.SQUAREDIM))
         self.pos = (pos_x, pos_y)
-        surface.blit(to_draw,
-            (pos_x * const.SQUAREDIM, pos_y * const.SQUAREDIM))
         self.occupied = False
         self.occupied_by = None
         if text_pos_x + text_pos_y == 0:
@@ -51,23 +52,30 @@ class GameMap:
     """
     Builds and store the game map
     """
-    def __init__(self, map_file, texture_name="texture1.png"):
+    def __init__(self, map_file):
         #The texture is where all the celltypes are stored
-        texture = pygame.image.load(texture_name).convert()
         self.width = int(map_file.readline())
         self.height = int(map_file.readline())
-        #The main_surface is the surface which is gonna be blitted
-        self.main_surface = pygame.Surface(
-            (const.SQUAREDIM * self.width, const.SQUAREDIM * self.height))
+        self.frames = int(map_file.readline().rstrip())
+        texture = []
+        self.main_surface = []
+        for i in range(self.frames):
+            name = const.IMAGESDIR + map_file.readline().rstrip()
+            texture.append(pygame.image.load(name).convert())
+            #The main_surface is the surface which is gonna be blitted
+            self.main_surface.append(pygame.Surface(
+                (const.SQUAREDIM * self.width, const.SQUAREDIM * self.height)))
         self.cells = []
         for pos_y in range(self.height):
             line = []
             for pos_x in range(self.width):
                 line.append(Cell(
-                    map_file, (pos_x, pos_y), texture, self.main_surface))
+                    map_file, (pos_x, pos_y), texture, self.main_surface, self.frames))
             self.cells.append(line)
     def get_cell(self, pos):
         """
         Returns a cell on position pos
         """
         return self.cells[pos[1]][pos[0]]
+    def get_rect(self):
+        return self.main_surface[0].get_rect()

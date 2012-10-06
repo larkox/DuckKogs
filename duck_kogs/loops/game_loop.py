@@ -25,9 +25,8 @@ class GameLoop(loop.Loop):
     def __init__(self, map_name):
         super(GameLoop, self).__init__()
         map_file = open(map_name, 'r')
-        texture_name = const.IMAGESDIR + map_file.readline().rstrip()
-        self.game_map = game_map.GameMap(map_file, texture_name)
-        self.game_map_rect = self.game_map.main_surface.get_rect()
+        self.game_map = game_map.GameMap(map_file)
+        self.game_map_rect = self.game_map.get_rect()
         self.cogs = cogs_group.CogsGroup(self.game_map)
         self.hero = hero.Hero(map_file)
         signals.PLAYER_MOVEMENT_SIGNAL.send(self.hero, pos = self.hero.pos,
@@ -52,6 +51,8 @@ class GameLoop(loop.Loop):
         time = 0.0
         screen_rect = screen.get_rect()
         self.game_map_rect.center = screen_rect.center
+        map_frame_index = 0
+        frame_count = 0
         while not loop_exit:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -68,18 +69,21 @@ class GameLoop(loop.Loop):
             screen.blit(self.background, (0, 0))
             #TODO Mejorar lo de usar imagenes en vez de fuentes
             screen.blit(
-                    pygame.font.Font(None, 60).render(
+                    pygame.font.Font(const.FONT, 60).render(
                         "%.0f" % time, True, (0, 0, 255)),
                     (730,20))
             screen.blit(
-                    pygame.font.Font(None, 60).render(
+                    pygame.font.Font(const.FONT, 60).render(
                         "%d" % len(self.cogs), True, (0, 0, 255)),
                     (10,20))
             screen.blit(
-                    pygame.font.Font(None, 60).render(
+                    pygame.font.Font(const.FONT, 60).render(
                         "%d" % GameLoop.LIVES, True, (0, 0, 255)),
                     (10,100))
-            screen.blit(self.game_map.main_surface, self.game_map_rect)
+            if (frame_count >= const.MAPFRAMESWITCH):
+                map_frame_index = (map_frame_index + 1) % self.game_map.frames
+                frame_count = 0
+            screen.blit(self.game_map.main_surface[map_frame_index], self.game_map_rect)
             self.cogs.update()
             self.foes.update(self.game_map)
             self.bombs.update(self.game_map)
@@ -98,6 +102,7 @@ class GameLoop(loop.Loop):
             pygame.display.flip()
             clock.tick(const.FPS)
             time += 1/float(const.FPS)
+            frame_count += 1
         self.bombs.empty()
         self.explosions.empty()
         return exit_reason

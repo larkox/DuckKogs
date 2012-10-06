@@ -36,3 +36,5 @@ LEFT = 3
 STUNTIME = FPS*3
 EXITDIED = 0
 EXITWON = 1
+MAPFRAMESWITCH = 60
+FONT = "fonts/ModernAntiqua.ttf"

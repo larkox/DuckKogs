@@ -1,6 +1,8 @@
+2
+2
+2
 texture1.png
-2
-2
+texture2.png
 0000 0100
 0001 1010
 1 1
