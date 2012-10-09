@@ -1,7 +1,7 @@
 """
 Module that contains the GameLoop class
 """
-from pygame.locals import K_UP, K_RIGHT, K_LEFT, K_DOWN
+from pygame.locals import K_UP, K_RIGHT, K_LEFT, K_DOWN, K_RETURN
 from duck_kogs.sprites import hero
 import pygame
 from duck_kogs import game_map
@@ -11,6 +11,7 @@ from duck_kogs.sprites import bombs_group
 from duck_kogs.sprites import explosions_group
 from duck_kogs.loops import loop
 from duck_kogs.loops import die_loop
+from duck_kogs.loops import pause_loop
 from duck_kogs import const
 from duck_kogs import signals
 import sys
@@ -60,6 +61,9 @@ class GameLoop(loop.Loop):
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == K_RETURN:
+                        pause_loop.PauseLoop().run(screen,clock)
             pressed = pygame.key.get_pressed()
             if pressed[K_UP]:
                 self.hero.next_move = const.UP
@@ -111,4 +115,4 @@ class GameLoop(loop.Loop):
         die_loop.DieLoop().run(screen, clock)
         self.bombs.empty()
         self.explosions.empty()
-        return exit_reason
+        return (exit_reason, time)

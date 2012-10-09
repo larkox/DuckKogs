@@ -40,10 +40,12 @@ class Character(pygame.sprite.Sprite, object):
                 (const.SQUAREDIM, const.SQUAREDIM))
         self.moving = False
         self.frame_count = 0
+        self.state_frame_count = 0
         self.movement_speed = 30
         self.movement_frame_count = 0
         self.rect2 = self.rect.copy()
         self.double_blit = False
+        self.direction = 0
 
 
 
@@ -58,6 +60,7 @@ class Character(pygame.sprite.Sprite, object):
         Move the sprite in the given direction if possible.
         """
         if not self.moving:
+            self.direction = direction
             current_cell = self.get_current_cell(game_map)
             new_img_pos = (0,
                     (const.SQUAREDIM * direction) % self.texture.get_height())
@@ -76,6 +79,15 @@ class Character(pygame.sprite.Sprite, object):
 
     def update(self, game_map):
         super(Character, self).update()
+        new_img_pos = ((self.state_frame_count / 20) *
+                const.SQUAREDIM % self.texture.get_width(),
+                (const.SQUAREDIM * self.direction) %
+                self.texture.get_height())
+        self.image = self.texture.subsurface(new_img_pos,
+                (const.SQUAREDIM, const.SQUAREDIM))
+        self.state_frame_count += 1
+        if self.state_frame_count >= 40:
+            self.state_frame_count = 0
         if self.moving:
             if self.movement_frame_count > self.movement_speed:
                 self.finish_movement(game_map)

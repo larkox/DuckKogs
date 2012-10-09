@@ -14,10 +14,6 @@ SLOWFASTFOE = 120
 FASTFOERANDOM = -1
 FASTFOESTOP = -2
 STAGESDIR = "maps/"
-STAGESLIST = [ "mapa1.txt",
-        "mapa2.txt",
-        "mapa3.txt",
-        "mapa4.txt"]
 SCREENWIDTH = 800
 SCREENHEIGHT = 450
 CAPTION = "Duck Kogs"
@@ -40,3 +36,6 @@ EXITDIED = 0
 EXITWON = 1
 MAPFRAMESWITCH = 60
 FONT = "fonts/ModernAntiqua.ttf"
+MAXSTAGESPPAGE = 10
+HIGHSCOREFILE = "highscore.txt"
+HIGHSCOREMAXVALUES = 5
